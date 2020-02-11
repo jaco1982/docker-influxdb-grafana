@@ -45,6 +45,9 @@ services:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
       - ./grafana/data:/var/lib/grafana
+    environment:
+      - "GF_SMTP_ENABLED=true"
+      - "GF_SMTP_HOST=localhost"
     networks:
       proxy:
         ipv4_address: 172.23.0.15
