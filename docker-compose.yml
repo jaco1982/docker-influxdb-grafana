@@ -47,7 +47,10 @@ services:
       - ./grafana/data:/var/lib/grafana
     environment:
       - "GF_SMTP_ENABLED=true"
-      - "GF_SMTP_HOST=172.23.0.3"
+      - "GF_SMTP_HOST=smtp.gmail.com:587"
+      - "GF_SMTP_USER=hbnet.alerts@gmail.com"
+      - "GF_SMTP_PASSWORD=St@3dl3r123@@"
+      - "GM_SMTP_FROM_ADDRESS=grafana@hbnet.co.za"
     networks:
       proxy:
         ipv4_address: 172.23.0.15
