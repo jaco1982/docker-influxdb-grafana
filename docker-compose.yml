@@ -47,7 +47,7 @@ services:
       - ./grafana/data:/var/lib/grafana
     environment:
       - "GF_SMTP_ENABLED=true"
-      - "GF_SMTP_HOST=localhost"
+      - "GF_SMTP_HOST=172.23.0.3"
     networks:
       proxy:
         ipv4_address: 172.23.0.15
