@@ -13,9 +13,10 @@ services:
     volumes:
       # Data persistency
       # sudo mkdir -p /srv/docker/influxdb/data
-      - /srv/docker/influxdb/data:/var/lib/influxdb
+      - ./influxdb/data:/var/lib/influxdb
     networks:
       - proxy
+    restart: always
 
   telegraf:
     image: telegraf:latest
@@ -26,6 +27,7 @@ services:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
     networks:
       - proxy
+    restart: always
 
   grafana:
     image: grafana/grafana:latest
@@ -40,9 +42,23 @@ services:
     volumes:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
-      - /srv/docker/grafana/data:/var/lib/grafana
+      - ./grafana/data:/var/lib/grafana
     networks:
       - proxy
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.entrypoints=http"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.hbnet.co.za`)"
+      - "traefik.http.middlewares.grafana-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.grafana.middlewares=grafana-https-redirect"
+      - "traefik.http.routers.grafana-secure.entrypoints=https"
+      - "traefik.http.routers.grafana-secure.rule=Host(`grafana.hbnet.co.za`)"
+      - "traefik.http.routers.grafana-secure.tls=true"
+      - "traefik.http.routers.grafana-secure.service=grafana"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+      - "traefik.docker.network=proxy"
+
 
 networks:
   proxy:
