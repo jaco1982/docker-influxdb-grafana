@@ -54,8 +54,7 @@ services:
       - "GF_SERVER_ROOT_URL=https://grafana.hbnet.co.za"
       - "GF_INSTALL_PLUGINS=raintank-worldping-app,grafana-worldmap-panel"
     networks:
-      proxy:
-        ipv4_address: 172.23.0.15
+      - proxy
     restart: always
     labels:
       - "traefik.enable=true"
