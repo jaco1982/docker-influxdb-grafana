@@ -17,7 +17,12 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.13
-    restart: always
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
 
   telegraf:
     image: telegraf:latest
@@ -29,7 +34,12 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.14
-    restart: always
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
 
   grafana:
     image: grafana/grafana:latest
@@ -55,7 +65,12 @@ services:
       - "GF_INSTALL_PLUGINS=raintank-worldping-app,grafana-worldmap-panel"
     networks:
       - proxy
-    restart: always
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.grafana.entrypoints=http"
