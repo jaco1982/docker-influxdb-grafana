@@ -17,12 +17,12 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.13
-    restart: no
+    #restart: no
     deploy:
       resources:
         limits:
           cpus: '0.50'
-          memory: 256M
+          memory: 512M
 
   telegraf:
     image: telegraf:latest
@@ -34,7 +34,7 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.14
-    restart: no
+    #restart: no
     deploy:
       resources:
         limits:
@@ -65,7 +65,7 @@ services:
       - "GF_INSTALL_PLUGINS=raintank-worldping-app,grafana-worldmap-panel"
     networks:
       - proxy
-    restart: no
+    #restart: no
     deploy:
       resources:
         limits:
