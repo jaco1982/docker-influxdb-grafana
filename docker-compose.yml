@@ -17,7 +17,7 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.13
-    restart: unless-stopped
+    restart: never
     deploy:
       resources:
         limits:
@@ -34,7 +34,7 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.14
-    restart: unless-stopped
+    restart: never
     deploy:
       resources:
         limits:
@@ -65,7 +65,7 @@ services:
       - "GF_INSTALL_PLUGINS=raintank-worldping-app,grafana-worldmap-panel"
     networks:
       - proxy
-    restart: unless-stopped
+    restart: never
     deploy:
       resources:
         limits:
