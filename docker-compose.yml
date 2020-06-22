@@ -17,7 +17,7 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.13
-    #restart: no
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -34,7 +34,7 @@ services:
     networks:
       proxy:
         ipv4_address: 172.23.0.14
-    #restart: no
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -55,6 +55,8 @@ services:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
       - ./grafana/data:/var/lib/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana/ldap.toml:/etc/grafana.ini/ldap.toml
     environment:
       - "GF_SMTP_ENABLED=true"
       - "GF_SMTP_HOST=smtp.gmail.com:587"
@@ -65,7 +67,7 @@ services:
       - "GF_INSTALL_PLUGINS=raintank-worldping-app,grafana-worldmap-panel"
     networks:
       - proxy
-    #restart: no
+    restart: unless-stopped
     deploy:
       resources:
         limits:
