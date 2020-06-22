@@ -22,7 +22,7 @@ services:
       resources:
         limits:
           cpus: '0.50'
-          memory: 512M
+          #memory: 512M
 
   telegraf:
     image: telegraf:latest
