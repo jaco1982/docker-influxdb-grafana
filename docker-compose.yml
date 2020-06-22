@@ -16,13 +16,8 @@ services:
       - ./influxdb/data:/var/lib/influxdb
     networks:
       proxy:
-        ipv4_address: 172.23.0.13
+        ipv4_address: 172.23.0.113
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          #memory: 512M
 
   telegraf:
     image: telegraf:latest
@@ -33,13 +28,8 @@ services:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
     networks:
       proxy:
-        ipv4_address: 172.23.0.14
+        ipv4_address: 172.23.0.114
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 128M
 
   grafana:
     image: grafana/grafana:latest
@@ -68,11 +58,6 @@ services:
     networks:
       - proxy
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 128M
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.grafana.entrypoints=http"
